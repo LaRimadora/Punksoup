@@ -9,7 +9,7 @@ print('geileWelt')
 myRequests = requests.get("http://jedermenschistzuviel.stabo.org/texte.php?show=2&what=7357")
 myRequests.content
 
-soup = BeautifulSoup( myRequests.content )
+soup = BeautifulSoup( myRequests.content.decode('ISO-8859-1','ignore') )
 websiteData = soup.html.find_all("td")
 textData 	= websiteData[6].find_all_next(text=True)
 
