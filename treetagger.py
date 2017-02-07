@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 ##Treetagger##
 
 ## Treetagger muss manuell installiert werden:
@@ -8,8 +9,8 @@ import re
 
 ## Pfad für treetagger-Datei im Programm-Ordner angeben:
 
-treetagger_german = "/home/larimadora/Programme/TreeTagger/tree-tagger-german"
-text_file = "texte-file.txt"
+treetagger_german = "tree-tagger-german"
+text_file = "texts_all.txt"
 tagged_text_file = "tagged-text.txt"
 
 tree_call = treetagger_german + " " + text_file + " > " + tagged_text_file
@@ -31,4 +32,7 @@ for item in texte_tagged_list:
     if len(item) == 4:
         tokens_tagged_list.append(item[0:3])
 
+#g = open("tagged-list.txt", 'w')
+#for element in tokens_tagged_list:
+#    g.write(element[0] + '\n')
 print(tokens_tagged_list)
