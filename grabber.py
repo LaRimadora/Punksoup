@@ -21,31 +21,31 @@ ersetzen = [['\\x99', u'\x99'], ['\\xe5',u'\xef'], ['\\xd1',u'\xd1'], ['\\xcd',u
         ['\\xb4','\''], ['\\x82', '\''], ['\\x91','\''], ['\\x85','...'], ['\\xb5',u'\xb5'], ['\\xa7', u'\xa7']]
 
 def extract(url):
-    f = urllib.request.urlopen(url)
-    mystring = str(f.read())
-    #print(mystring)
-    mystring = mystring.replace('b\'', '', 1) #replace the first b' at the start of the page
-    mystring = mystring.replace('<br>', '\n')
+    urlStream = urllib.request.urlopen(url)
+    textFromWeb = str(urlStream.read())
+    #print(textFromWeb)
+    textFromWeb = textFromWeb.replace('b\'', '', 1) #replace the first b' at the start of the page
+    textFromWeb = textFromWeb.replace('<br>', '\n')
 
     #replace stuff in ersetzen
     for strings in ersetzen:
-        mystring = mystring.replace(strings[0], strings[1])
+        textFromWeb = textFromWeb.replace(strings[0], strings[1])
 
     #delete expressions in strip
     for strings in strip:
-        mystring = mystring.replace(strings, '')
+        textFromWeb = textFromWeb.replace(strings, '')
 
     #regular expressions for removing <> html elements
-    mystring = re.sub('\[<.*?>.*?</.*?>\]', '', mystring)
-    mystring = re.sub('<.*?>.*?</.*?>', '', mystring)
-    mystring = re.sub('<.*?>', '', mystring)
+    textFromWeb = re.sub('\[<.*?>.*?</.*?>\]', '', textFromWeb)
+    textFromWeb = re.sub('<.*?>.*?</.*?>', '', textFromWeb)
+    textFromWeb = re.sub('<.*?>', '', textFromWeb)
 
     #rest of overlooked html or other text
-    mystring = mystring.replace(' oder andere Texte von :', '')
-    mystring = mystring.replace(' --\'', '')
-    #mystring = mystring.replace('\n', ' ')
-    mystring = re.sub('\s+', ' ', mystring).strip() #remove excess whitespaces
-    return(mystring)
+    textFromWeb = textFromWeb.replace(' oder andere Texte von :', '')
+    textFromWeb = textFromWeb.replace(' --\'', '')
+    #textFromWeb = textFromWeb.replace('\n', ' ')
+    textFromWeb = re.sub('\s+', ' ', textFromWeb).strip() #remove excess whitespaces
+    return(textFromWeb)
 
 #print(mystring)
 
